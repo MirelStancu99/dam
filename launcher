@@ -1,0 +1,41 @@
+//main
+launcher = registerLauncher(); -- on create
+
+private ActivityResultLauncher<Intent> registerLauncher() {
+    ActivityResultCallback<ActivityResult> callback = getAddCallback();
+    return registerForActivityResult(
+            new ActivityResultContracts.StartActivityForResult(),
+            callback);
+    }
+
+private ActivityResultCallback<ActivityResult> getAddCallback() {
+    return new ActivityResultCallback<ActivityResult>() {
+        @Override
+        public void onActivityResult(ActivityResult result) {
+            if(result.getResultCode() == RESULT_OK &&
+            result.getData() !=null){
+                Student student = (Student) result.getData()
+                        .getSerializableExtra("studentKey");
+                studenti.add(student);
+                ArrayAdapter adapter = (ArrayAdapter) lwMain.getAdapter();
+                adapter.notifyDataSetChanged();
+
+        }
+    }
+};
+
+
+//add activity  on create
+intent = getIntent();
+
+buttonSubmit.setOnClickListener(new View.OnClickListener() {
+    @Override
+    public void onClick(View view) {
+        if(isValid()){
+            Student student = BuildStudent();
+            intent.putExtra("studentKey",student);
+            setResult(RESULT_OK,intent);
+            finish();
+        }
+    }
+});
