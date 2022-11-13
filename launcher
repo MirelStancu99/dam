@@ -39,3 +39,10 @@ buttonSubmit.setOnClickListener(new View.OnClickListener() {
         }
     }
 });
+
+
+if(view.getId()==R.id.stancu_gheorghe_mirel_btnStart){
+            getSupportFragmentManager().beginTransaction()
+                    .replace(R.id.stancu_gheorghe_mirel_FrameLayout,
+                            new QuizFragment()).commit();
+        }
